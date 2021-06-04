@@ -64,3 +64,5 @@ crashlytics-build.properties
 
 Assets/ParkitectAssetEditor.meta
 *.autosave
+Assets/Resources.meta
+Assets/Resources/AssetPack.meta
