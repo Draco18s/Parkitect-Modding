@@ -10,6 +10,8 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 /ParkitectAssetEditor/
+/AssetPack/
+/Mods/
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta

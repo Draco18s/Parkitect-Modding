@@ -3,7 +3,7 @@
 namespace Assets.draco18s.ParkitectMod {
 	public class CurvedScreenDeco :
 #if DLL_EXPORT
-		AbstractBanner
+		AbstractScreen
 #else
 		MonoBehaviour
 #endif
