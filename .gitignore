@@ -2,6 +2,15 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
+
+# Never ignore Asset meta data
+!/[Aa]ssets/**/*.meta
+
+# Except these
+/Assets/ParkitectAssetEditor.meta
+*.autosave.meta
+*.autosave
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -9,13 +18,9 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
-/ParkitectAssetEditor/**
+/Assets/ParkitectAssetEditor/**
 /Assets/Resources/AssetPack/**
 /Mods/**
-
-# Never ignore Asset meta data
-!/[Aa]ssets/**/*.meta
-/Assets/Resources/AssetPack/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
@@ -61,6 +66,3 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
-
-*.autosave
-Assets/ParkitectAssetEditor/**
