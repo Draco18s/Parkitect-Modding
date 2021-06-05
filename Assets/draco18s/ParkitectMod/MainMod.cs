@@ -10,8 +10,6 @@ namespace Assets.draco18s.ParkitectMod {
 	public class MainMod : AssetMod {
 		public static string VERSION = "0.0.1a";
 		public static MainMod instance;
-		private GameObject hider;
-		private List<UnityEngine.Object> assetObjects = new List<UnityEngine.Object>();
 
 		public MainMod() {
 			instance = this;
@@ -25,9 +23,6 @@ namespace Assets.draco18s.ParkitectMod {
 		public override void onDisabled() {
 			base.onDisabled();
 			EventManager.Instance.OnBuildableObjectBuilt -= BuildTrigger;
-			foreach(UnityEngine.Object obj in assetObjects) {
-				ScriptableSingleton<AssetManager>.Instance.unregisterObject(obj);
-			}
 		}
 
 		private void BuildTrigger(BuildableObject buildableObject) {
