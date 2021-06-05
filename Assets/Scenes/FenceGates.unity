@@ -804,6 +804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63dbd22757e5824ba088fa0ed67956a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  extraScaling: {x: 0, y: 0, z: 0}
   height: 1
 --- !u!23 &378198350
 MeshRenderer:
@@ -867,6 +868,81 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &509532729
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 100000, guid: 99a991ed711a53b44a9d6b247fcf8902, type: 3}
+      propertyPath: m_Name
+      value: Queue Bench
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99a991ed711a53b44a9d6b247fcf8902, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99a991ed711a53b44a9d6b247fcf8902, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99a991ed711a53b44a9d6b247fcf8902, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99a991ed711a53b44a9d6b247fcf8902, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99a991ed711a53b44a9d6b247fcf8902, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99a991ed711a53b44a9d6b247fcf8902, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99a991ed711a53b44a9d6b247fcf8902, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99a991ed711a53b44a9d6b247fcf8902, type: 3}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99a991ed711a53b44a9d6b247fcf8902, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99a991ed711a53b44a9d6b247fcf8902, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 99a991ed711a53b44a9d6b247fcf8902, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 99a991ed711a53b44a9d6b247fcf8902, type: 3}
+--- !u!1 &509532730 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 99a991ed711a53b44a9d6b247fcf8902,
+    type: 3}
+  m_PrefabInstance: {fileID: 509532729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &509532731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509532730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcef5938dc6590a40bd015ad4f1aebcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &659308778
 GameObject:
   m_ObjectHideFlags: 0
@@ -1369,6 +1445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63dbd22757e5824ba088fa0ed67956a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  extraScaling: {x: -0.05, y: 0, z: -0.05}
   height: 1
 --- !u!23 &1560214907
 MeshRenderer:
@@ -1833,6 +1910,7 @@ MonoBehaviour:
   - abf141dfc2ba5884c9e727287e0a3567
   - f46a2645fa2baed428483ff5869abdd7
   - 468264ffb06e8cc4e9818d7f934737f9
+  - eda1b29b6b607944cafcb17cd3c03581
   GameObjects:
   - {fileID: 0}
   - {fileID: 437861942176098508}
@@ -1850,6 +1928,7 @@ MonoBehaviour:
   - {fileID: 331470334}
   - {fileID: 1560214905}
   - {fileID: 378198348}
+  - {fileID: 509532730}
 --- !u!4 &2128690919
 Transform:
   m_ObjectHideFlags: 0
@@ -1968,6 +2047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008d68c10aa2c5f42a4134cab0069323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  extraScaling: {x: -0.05, y: 0, z: -0.05}
   height: 1
 --- !u!23 &2962960597836117581
 MeshRenderer:
@@ -2199,6 +2279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008d68c10aa2c5f42a4134cab0069323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  extraScaling: {x: 0, y: 0, z: 0}
   height: 1
 --- !u!4 &5883529352904671300
 Transform:

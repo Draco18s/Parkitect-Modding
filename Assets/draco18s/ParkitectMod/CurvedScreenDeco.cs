@@ -8,6 +8,7 @@ namespace Assets.draco18s.ParkitectMod {
 		MonoBehaviour
 #endif
 		{
+		public Vector3 extraScaling = Vector3.zero;
 #if DLL_EXPORT
 		protected override CrossedTiles GetCrossedTilesInstance() {
 			if(_crossedTiles != null && Mathf.Abs(base.transform.eulerAngles.y - _crossedTiles.rotationY) >= 1f) {
@@ -49,7 +50,7 @@ namespace Assets.draco18s.ParkitectMod {
 
 		protected override void SizeChange() {
 			Vector3 p = Vector3.one + lazyLoadedCustomSizeBehaviour.axisScale * (lazyLoadedCustomSizeBehaviour.getValue() - 1);
-			transform.localScale = new Vector3(p.x - 0.05f, p.y, p.z - 0.05f);
+			transform.localScale = new Vector3(p.x - extraScaling.x, p.y - extraScaling.y, p.z - extraScaling.z);
 			base.SizeChange();
 		}
 	}
