@@ -9,7 +9,7 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
-/ParkitectAssetEditor/
+/ParkitectAssetEditor/**
 /Assets/Resources/AssetPack/**
 /Mods/**
 
