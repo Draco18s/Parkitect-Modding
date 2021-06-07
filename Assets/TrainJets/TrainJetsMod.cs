@@ -1,4 +1,6 @@
-﻿using MiniJSON;
+﻿#if DLL_EXPORT
+using MiniJSON;
+#endif
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -101,6 +103,11 @@ namespace TrainJetsMod {
 			foreach(ChunkedMesh cm in componentsInChildren) {
 				GameObject.Destroy(cm);
 			}
+			ParticleSystem[] systems = buildableObject.GetComponentsInChildren<ParticleSystem>();
+			foreach(ParticleSystem sys in systems) {
+				ParticleSystem.MainModule m = sys.main;
+				m.simulationSpace = ParticleSystemSimulationSpace.World;
+			}
 			//linksDict.Add(car.getId(),buildableObject.getId());
 			DecoLink link = new DecoLink {
 				buildableID = buildableObject.getId(),
@@ -150,6 +157,15 @@ namespace TrainJetsMod {
 			buildableObject.transform.SetParent(car.transform);
 			buildableObject.transform.localPosition = link.localpos;
 			buildableObject.transform.localRotation = link.localrot;
+			ChunkedMesh[] componentsInChildren = buildableObject.GetComponentsInChildren<ChunkedMesh>();
+			foreach(ChunkedMesh cm in componentsInChildren) {
+				GameObject.Destroy(cm);
+			}
+			ParticleSystem[] systems = buildableObject.GetComponentsInChildren<ParticleSystem>();
+			foreach(ParticleSystem sys in systems) {
+				ParticleSystem.MainModule m = sys.main;
+				m.simulationSpace = ParticleSystemSimulationSpace.World;
+			}
 			if(!instance.linksDict.Contains(link)) {
 				instance.linksDict.Add(link);
 			}

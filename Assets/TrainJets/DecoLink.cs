@@ -3,7 +3,9 @@ using UnityEngine;
 
 namespace TrainJetsMod {
 	[Serializable]
-	public struct DecoLink {
+	public struct DecoLink
+#if DLL_EXPORT
+	{
 		[Serialized]
 		public string attachedCarID;
 		[Serialized]
@@ -47,4 +49,7 @@ namespace TrainJetsMod {
 			return (buildableID + ":" + attachedCarID).GetHashCode();
 		}
 	}
+#else
+	{ }
+#endif
 }
