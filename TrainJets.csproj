@@ -11,10 +11,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{A7896283-E644-AC7E-2132-BEB2FFE93139}</ProjectGuid>
+    <ProjectGuid>{283C62C3-93D8-235B-2900-762BB7EE7B6F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>DracoModHelper</AssemblyName>
+    <AssemblyName>TrainJets</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -62,23 +62,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\draco18s\BadDeco.cs" />
-    <Compile Include="Assets\draco18s\MBLoader.cs" />
-    <Compile Include="Assets\draco18s\ParkitectMod\AbstractBanner.cs" />
-    <Compile Include="Assets\draco18s\ParkitectMod\AbstractDarkRideBanner.cs" />
-    <Compile Include="Assets\draco18s\ParkitectMod\AbstractDarkRideProp.cs" />
-    <Compile Include="Assets\draco18s\ParkitectMod\AbstractScreen.cs" />
-    <Compile Include="Assets\draco18s\ParkitectMod\CurvedBannerDeco.cs" />
-    <Compile Include="Assets\draco18s\ParkitectMod\CurvedScreenDeco.cs" />
-    <Compile Include="Assets\draco18s\ParkitectMod\FenceVoxelizeForcer.cs" />
-    <Compile Include="Assets\draco18s\ParkitectMod\FlatBannerDeco.cs" />
-    <Compile Include="Assets\draco18s\ParkitectMod\FlatScreenDeco.cs" />
-    <Compile Include="Assets\draco18s\ParkitectMod\MainMod.cs" />
-    <Compile Include="Assets\draco18s\ParkitectMod\PrerideShowBehaviour.cs" />
-    <Compile Include="Assets\draco18s\ParkitectMod\QueueBench.cs" />
-    <Compile Include="Assets\draco18s\ParkitectMod\TrackSplit.cs" />
-    <Compile Include="Assets\draco18s\VoxelVisualizer.cs" />
-    <None Include="Assets\draco18s\DracoModHelper.asmdef" />
+    <Compile Include="Assets\TrainJets\DecoLink.cs" />
+    <Compile Include="Assets\TrainJets\DecoLinkCommand.cs" />
+    <Compile Include="Assets\TrainJets\TrainJetsMod.cs" />
+    <None Include="Assets\TrainJets\TrainJets.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/2019.4.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -99,6 +86,9 @@
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
       <HintPath>C:/Program Files/Unity/2019.4.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>C:/Program Files/Unity/2019.4.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

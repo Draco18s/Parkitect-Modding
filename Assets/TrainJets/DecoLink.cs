@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using UnityEngine;
 
 namespace TrainJetsMod {
@@ -47,6 +48,21 @@ namespace TrainJetsMod {
 
 		public override int GetHashCode() {
 			return (buildableID + ":" + attachedCarID).GetHashCode();
+		}
+
+		public override string ToString() {
+			StringBuilder sb = new StringBuilder();
+			sb.Append("{").Append("\"attachedCarID\":\"").Append(attachedCarID).Append("\",")
+				.Append("\"buildableID\":\"").Append(buildableID).Append("\",")
+				.Append("\"px\":").Append(px)
+				.Append(",\"py\":").Append(py)
+				.Append(",\"pz\":").Append(pz)
+				.Append(",\"rw\":").Append(rw)
+				.Append(",\"rx\":").Append(rx)
+				.Append(",\"ry\":").Append(ry)
+				.Append(",\"rz\":").Append(rz)
+				.Append("}");
+			return sb.ToString();
 		}
 	}
 #else
