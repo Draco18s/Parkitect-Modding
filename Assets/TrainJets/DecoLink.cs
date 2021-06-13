@@ -50,6 +50,10 @@ namespace TrainJetsMod {
 			return (buildableID + ":" + attachedCarID).GetHashCode();
 		}
 
+		public DecoLink Parse(string json) {
+			return TrainJetsMod.JsonToDecoLink(MiniJSON.Json.Deserialize(json));
+		}
+
 		public override string ToString() {
 			StringBuilder sb = new StringBuilder();
 			sb.Append("{").Append("\"attachedCarID\":\"").Append(attachedCarID).Append("\",")

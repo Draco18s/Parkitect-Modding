@@ -34,6 +34,10 @@ namespace TrainJetsMod {
 			instance = this;
 		}
 
+		public override bool isMultiplayerModeCompatible() {
+			return true;
+		}
+
 		public override string getName() {
 			return NAME;
 		}
@@ -52,32 +56,20 @@ namespace TrainJetsMod {
 		public override void onEnabled() {
 			base.onEnabled();
 			EventManager.Instance.OnBuildableObjectBuilt += BuildTrigger;
-			EventManager.Instance.OnStartPlayingPark += LoadData;
+			Deserializer.Instance.addAfterDeserializationHandler(LoadData);
 			EventManager.Instance.OnGameSaved += SaveData;
-			EventManager.Instance.OnWeekChanged += WeekChanged;
-			Deserializer.Instance.addAfterDeserializationHandler(delegate
-			{
-				Debug.Log("After deserialize, we link stuff" + linksDict.Count);
-			});
-		}
-
-		private void WeekChanged(int newWeek) {
-			foreach(DecoLink link in linksDict) {
-				Debug.Log("Relinking " + link.buildableID);
-				DoLinkFrom(link);
-			}
+			CommandController.Instance.commandSerializer.registerCommandType<DecoLinkCommand>();
 		}
 
 		public override void onDisabled() {
 			base.onDisabled();
 			EventManager.Instance.OnBuildableObjectBuilt -= BuildTrigger;
-			EventManager.Instance.OnStartPlayingPark -= LoadData;
 			EventManager.Instance.OnGameSaved -= SaveData;
-			EventManager.Instance.OnWeekChanged -= WeekChanged;
 		}
 
 		private void BuildTrigger(BuildableObject buildableObject) {
-			if(buildableObject.getReferenceName().ToLower().Contains("nozzle")) {
+			if(buildableObject.GetType() == typeof(Deco)) { 
+			//if(buildableObject.getReferenceName().ToLower().Contains("nozzle")) {
 				if(buildableObject.transform.parent != null) return;
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				BuilderMousePositionInfo builderMousePositionInfo = default(BuilderMousePositionInfo);
@@ -103,7 +95,10 @@ namespace TrainJetsMod {
 				if(builderMousePositionInfo.hitSomething) {
 					Car car = builderMousePositionInfo.hitObject.GetComponent<Car>();
 					if(car != null) {
-						Link(buildableObject, car);
+						Debug.Log("Link distance: " + Vector3.Distance(builderMousePositionInfo.hitPosition, buildableObject.transform.position));
+						if(Vector3.Distance(builderMousePositionInfo.hitPosition, buildableObject.transform.position) < 0.1f) {
+							Link(buildableObject, car);
+						}
 					}
 				}
 			}
@@ -156,35 +151,42 @@ namespace TrainJetsMod {
 			string parkName = GameController.Instance.park.parkName;
 			string saveDir = System.IO.Path.Combine(path, parkName);
 			if(File.Exists(saveDir + "/links.json")) {
-				object q = Json.Deserialize(File.ReadAllText(saveDir + "/links.json"));
-				Debug.Log(q is List<object>);
-				List<object> l = (List<object>)q;
+				object jsonStr = Json.Deserialize(File.ReadAllText(saveDir + "/links.json"));
+				List<object> l = (List<object>)jsonStr;
 				foreach(object o in l) {
-					if(o is string) {
-						object j = Json.Deserialize((string)o);
-						Debug.Log(j is Dictionary<string, object>);
-						if(j is Dictionary<string, object> d) {
-							double px = (double)d["px"];
-							double py = (double)d["py"];
-							double pz = (double)d["pz"];
-							double rw = (double)d["rw"];
-							double rx = (double)d["rx"];
-							double ry = (double)d["ry"];
-							double rz = (double)d["rz"];
-							Debug.Log("Adding saved link");
-							linksDict.Add(new DecoLink {
-								attachedCarID = (string)d["attachedCarID"],
-								buildableID = (string)d["buildableID"],
-								localpos = new Vector3((float)px, (float)py, (float)pz),
-								localrot = new Quaternion((float)rw, (float)rx, (float)ry, (float)rz)
-							});
-						}
-					}
+					DecoLink d = JsonToDecoLink(o);
+					if(!string.IsNullOrEmpty(d.attachedCarID))
+						linksDict.Add(d);
+				}
+				foreach(DecoLink ln in linksDict) {
+					DoLinkFrom(ln);
 				}
 			}
 			else {
 				Debug.Log(saveDir + "/links.json not found");
 			}
+		}
+
+		public static DecoLink JsonToDecoLink(object o) {
+			if(o is string) {
+				object j = Json.Deserialize((string)o);
+				if(j is Dictionary<string, object> d) {
+					double px = (double)d["px"];
+					double py = (double)d["py"];
+					double pz = (double)d["pz"];
+					double rw = (double)d["rw"];
+					double rx = (double)d["rx"];
+					double ry = (double)d["ry"];
+					double rz = (double)d["rz"];
+					return new DecoLink {
+						attachedCarID = (string)d["attachedCarID"],
+						buildableID = (string)d["buildableID"],
+						localpos = new Vector3((float)px, (float)py, (float)pz),
+						localrot = new Quaternion((float)rw, (float)rx, (float)ry, (float)rz)
+					};
+				}
+			}
+			return new DecoLink();
 		}
 
 		public static void DoLinkFrom(DecoLink link) {

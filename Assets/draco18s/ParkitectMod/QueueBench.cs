@@ -53,7 +53,7 @@ namespace Assets.draco18s.ParkitectMod {
 					prsb.original = qb;
 					prsb.pos = p.transform.position;
 					p.changeBehaviour(prsb, false);
-					p.sitDownOn(getFreeSeat());
+					//p.sitDownOn(getFreeSeat());
 				}
 			}
 		}

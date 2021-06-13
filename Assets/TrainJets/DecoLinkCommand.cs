@@ -11,13 +11,29 @@ namespace TrainJetsMod {
 		[SerializeField]
 		public DecoLink theLink;
 
+		[SerializeField]
+		public string theLinkJson;
+
 		public DecoLinkCommand(DecoLink l) {
 			theLink = l;
+			theLinkJson = l.ToString();
 		}
 
 		public override void run() {
-			if(!isOwnCommand)
-				TrainJetsMod.DoLinkFrom(theLink);
+			if(!isOwnCommand) {
+				if(!string.IsNullOrEmpty(theLink.attachedCarID)) {
+					Debug.Log("Got link object");
+					TrainJetsMod.DoLinkFrom(theLink);
+				}
+				else if(!string.IsNullOrEmpty(theLinkJson)) {
+					Debug.Log("Got string");
+					DecoLink theLink = TrainJetsMod.JsonToDecoLink(MiniJSON.Json.Deserialize(theLinkJson));
+					TrainJetsMod.DoLinkFrom(theLink);
+				}
+				else {
+					Debug.Log("Something is broken");
+				}
+			}
 		}
 
 		public override bool isOnlineOnlyCommand() {
