@@ -10,11 +10,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
-    <ProjectGuid>{283C62C3-93D8-235B-2900-762BB7EE7B6F}</ProjectGuid>
+    <RootNamespace>
+    </RootNamespace>
+    <ProjectGuid>{9143E907-D42D-2610-6FDA-8FFB33CFAEC9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>TrainJets</AssemblyName>
+    <AssemblyName>DeterministicCommands</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -62,10 +63,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\TrainJets\DecoLink.cs" />
-    <Compile Include="Assets\TrainJets\DecoLinkCommand.cs" />
-    <Compile Include="Assets\TrainJets\TrainJetsMod.cs" />
-    <None Include="Assets\TrainJets\TrainJets.asmdef" />
+    <Compile Include="Assets\draco18s\DeterministicCommands\BiDictionary.cs" />
+    <Compile Include="Assets\draco18s\DeterministicCommands\CommandSerializerProtoBufPatcher.cs" />
+    <Compile Include="Assets\draco18s\DeterministicCommands\KeyValuePairExts.cs" />
+    <Compile Include="Assets\draco18s\DeterministicCommands\ParkitectCommandRemanager.cs" />
+    <Compile Include="Assets\draco18s\DeterministicCommands\StringExt.cs" />
+    <None Include="Assets\draco18s\DeterministicCommands\DeterministicCommands.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/2019.4.5f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -104,6 +107,12 @@
     <Reference Include="mscorlib" />
     <Reference Include="Parkitect">
       <HintPath>C:/Program Files (x86)/Steam/steamapps/common/Parkitect/Parkitect_Data/Managed/Parkitect.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>C:/Program Files (x86)/Steam/steamapps/common/Parkitect/Parkitect_Data/Managed/protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="Harmony">
+      <HintPath>./Packages/0Harmony.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -27,7 +27,7 @@ namespace TrainJetsMod {
 				}
 				else if(!string.IsNullOrEmpty(theLinkJson)) {
 					Debug.Log("Got string");
-					DecoLink theLink = TrainJetsMod.JsonToDecoLink(MiniJSON.Json.Deserialize(theLinkJson));
+					DecoLink theLink = JsonUtility.FromJson<DecoLink>(theLinkJson); //TrainJetsMod.JsonToDecoLink(MiniJSON.Json.Deserialize(theLinkJson));
 					TrainJetsMod.DoLinkFrom(theLink);
 				}
 				else {
@@ -37,7 +37,7 @@ namespace TrainJetsMod {
 		}
 
 		public override bool isOnlineOnlyCommand() {
-			return true;
+			return false;
 		}
 	}
 #else

@@ -68,9 +68,10 @@ namespace TrainJetsMod {
 		}
 
 		private void BuildTrigger(BuildableObject buildableObject) {
-			if(buildableObject.GetType() == typeof(Deco)) { 
-			//if(buildableObject.getReferenceName().ToLower().Contains("nozzle")) {
+			if(buildableObject.GetType() == typeof(Deco)) {
 				if(buildableObject.transform.parent != null) return;
+				Bounds bounds = buildableObject.GetComponent<MeshFilter>().sharedMesh.bounds;
+				if(bounds.size.x > 0.333f || bounds.size.y > 0.333f || bounds.size.z > 0.333f) return;
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				BuilderMousePositionInfo builderMousePositionInfo = default(BuilderMousePositionInfo);
 				builderMousePositionInfo.hitDistance = float.MaxValue;
@@ -139,7 +140,7 @@ namespace TrainJetsMod {
 				return;
 			}
 			try {
-				File.WriteAllText(saveDir + "/links.json", Json.Serialize(linksDict));
+				File.WriteAllText(saveDir + "/links.json", JsonUtility.ToJson(linksDict)/*Json.Serialize(linksDict)*/);
 			}
 			catch {
 				Debug.LogError("Writing failed: " + saveDir + "/links.json");
@@ -151,13 +152,8 @@ namespace TrainJetsMod {
 			string parkName = GameController.Instance.park.parkName;
 			string saveDir = System.IO.Path.Combine(path, parkName);
 			if(File.Exists(saveDir + "/links.json")) {
-				object jsonStr = Json.Deserialize(File.ReadAllText(saveDir + "/links.json"));
-				List<object> l = (List<object>)jsonStr;
-				foreach(object o in l) {
-					DecoLink d = JsonToDecoLink(o);
-					if(!string.IsNullOrEmpty(d.attachedCarID))
-						linksDict.Add(d);
-				}
+				linksDict = JsonUtility.FromJson<List<DecoLink>>(File.ReadAllText(saveDir + "/links.json"));
+				
 				foreach(DecoLink ln in linksDict) {
 					DoLinkFrom(ln);
 				}
@@ -165,28 +161,6 @@ namespace TrainJetsMod {
 			else {
 				Debug.Log(saveDir + "/links.json not found");
 			}
-		}
-
-		public static DecoLink JsonToDecoLink(object o) {
-			if(o is string) {
-				object j = Json.Deserialize((string)o);
-				if(j is Dictionary<string, object> d) {
-					double px = (double)d["px"];
-					double py = (double)d["py"];
-					double pz = (double)d["pz"];
-					double rw = (double)d["rw"];
-					double rx = (double)d["rx"];
-					double ry = (double)d["ry"];
-					double rz = (double)d["rz"];
-					return new DecoLink {
-						attachedCarID = (string)d["attachedCarID"],
-						buildableID = (string)d["buildableID"],
-						localpos = new Vector3((float)px, (float)py, (float)pz),
-						localrot = new Quaternion((float)rw, (float)rx, (float)ry, (float)rz)
-					};
-				}
-			}
-			return new DecoLink();
 		}
 
 		public static void DoLinkFrom(DecoLink link) {
@@ -199,9 +173,13 @@ namespace TrainJetsMod {
 			else {
 				Debug.Log("Relinking " + link.buildableID + " to " + link.attachedCarID);
 			}
+			if(link.localpos.magnitude > 1) {
+				Debug.Log("localpos is insane! " + link.localpos);
+			}
 			buildableObject.transform.SetParent(car.transform);
 			buildableObject.transform.localPosition = link.localpos;
 			buildableObject.transform.localRotation = link.localrot;
+			
 			ChunkedMesh[] componentsInChildren = buildableObject.GetComponentsInChildren<ChunkedMesh>();
 			foreach(ChunkedMesh cm in componentsInChildren) {
 				GameObject.Destroy(cm);
