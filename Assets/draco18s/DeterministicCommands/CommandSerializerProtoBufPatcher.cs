@@ -48,10 +48,12 @@ namespace Assets.draco18s.DeterministicCommands {
 
 		public static void addTypeToModelPrefix(Type type) {
 			string asmName = type.Assembly.GetName().Name;
+			asmName = asmName.Replace("Parkitect", "Pkt");
 			string typeName = type.Name;
+			typeName = typeName.Replace("Command", "Cmd");
 			if(asmName.Length + typeName.Length > 128) {
 				asmName = asmName.Truncate(48);
-				typeName = typeName.Truncate(96);
+				typeName = typeName.Truncate(80);
 			}
 			typeRegistry.Add(type, asmName + typeName);
 		}
