@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using UnityEngine;
 
 namespace TrainJetsMod {
@@ -8,8 +7,10 @@ namespace TrainJetsMod {
 #if DLL_EXPORT
 	{
 		[Serialized]
+		[SerializeField]
 		public string attachedCarID;
 		[Serialized]
+		[SerializeField]
 		public string buildableID;
 		
 		public Vector3 localpos {
@@ -35,8 +36,10 @@ namespace TrainJetsMod {
 			}
 		}
 		[Serialized]
+		[SerializeField]
 		public float px, py, pz;
 		[Serialized]
+		[SerializeField]
 		public float rw, rx, ry, rz;
 
 		public override bool Equals(object obj) {

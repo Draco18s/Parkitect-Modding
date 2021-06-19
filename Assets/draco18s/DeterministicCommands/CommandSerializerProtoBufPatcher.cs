@@ -1,14 +1,14 @@
 ﻿using Alba.Framework.Collections;
+#if DLL_EXPORT
 using ProtoBuf.Meta;
+#endif
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Text;
-using UnityEngine;
 
 namespace Assets.draco18s.DeterministicCommands {
-	public class CommandSerializerProtoBufPatcher {
+	public static class CommandSerializerProtoBufPatcher {
+#if DLL_EXPORT
 		private static BiDictionary<Type, string> typeRegistry = new BiDictionary<Type, string>();
 
 		public static bool deserializePrefix(byte[] message, ref AbstractCommand __result, RuntimeTypeModel ___typeModel) {
@@ -29,7 +29,7 @@ namespace Assets.draco18s.DeterministicCommands {
 			return false;
 		}
 
-		public bool serializePrefix(AbstractCommand command, ref byte[] __result, RuntimeTypeModel ___typeModel) {
+		public static bool serializePrefix(AbstractCommand command, ref byte[] __result, RuntimeTypeModel ___typeModel) {
 			byte[] result;
 			using(MemoryStream memoryStream = new MemoryStream()) {
 				if(typeRegistry.TryGetValue(command.GetType(), out string messageID)) {
@@ -55,5 +55,6 @@ namespace Assets.draco18s.DeterministicCommands {
 			}
 			typeRegistry.Add(type, asmName + typeName);
 		}
+#endif
 	}
 }

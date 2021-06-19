@@ -16,7 +16,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>DeterministicCommands</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
   </PropertyGroup>
@@ -65,8 +65,8 @@
   <ItemGroup>
     <Compile Include="Assets\draco18s\DeterministicCommands\BiDictionary.cs" />
     <Compile Include="Assets\draco18s\DeterministicCommands\CommandSerializerProtoBufPatcher.cs" />
+    <Compile Include="Assets\draco18s\DeterministicCommands\DeterministicCommands.cs" />
     <Compile Include="Assets\draco18s\DeterministicCommands\KeyValuePairExts.cs" />
-    <Compile Include="Assets\draco18s\DeterministicCommands\ParkitectCommandRemanager.cs" />
     <Compile Include="Assets\draco18s\DeterministicCommands\StringExt.cs" />
     <None Include="Assets\draco18s\DeterministicCommands\DeterministicCommands.asmdef" />
     <Reference Include="UnityEngine">

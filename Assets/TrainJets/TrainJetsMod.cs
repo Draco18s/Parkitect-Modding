@@ -1,5 +1,4 @@
 ﻿#if DLL_EXPORT
-using MiniJSON;
 using System;
 #endif
 using System.Collections.Generic;
@@ -34,10 +33,6 @@ namespace TrainJetsMod {
 			instance = this;
 		}
 
-		public override bool isMultiplayerModeCompatible() {
-			return true;
-		}
-
 		public override string getName() {
 			return NAME;
 		}
@@ -53,6 +48,11 @@ namespace TrainJetsMod {
 		public override string getIdentifier() {
 			return NAME + "-" + VERSION;
 		}
+
+		public override bool isMultiplayerModeCompatible() {
+			return true;
+		}
+
 		public override void onEnabled() {
 			base.onEnabled();
 			EventManager.Instance.OnBuildableObjectBuilt += BuildTrigger;
@@ -116,7 +116,6 @@ namespace TrainJetsMod {
 				ParticleSystem.MainModule m = sys.main;
 				m.simulationSpace = ParticleSystemSimulationSpace.World;
 			}
-			//linksDict.Add(car.getId(),buildableObject.getId());
 			DecoLink link = new DecoLink {
 				buildableID = buildableObject.getId(),
 				attachedCarID = car.getId(),
@@ -140,7 +139,7 @@ namespace TrainJetsMod {
 				return;
 			}
 			try {
-				File.WriteAllText(saveDir + "/links.json", JsonUtility.ToJson(linksDict)/*Json.Serialize(linksDict)*/);
+				File.WriteAllText(saveDir + "/links.json", MiniJSON.Json.Serialize(linksDict));
 			}
 			catch {
 				Debug.LogError("Writing failed: " + saveDir + "/links.json");
@@ -152,8 +151,13 @@ namespace TrainJetsMod {
 			string parkName = GameController.Instance.park.parkName;
 			string saveDir = System.IO.Path.Combine(path, parkName);
 			if(File.Exists(saveDir + "/links.json")) {
-				linksDict = JsonUtility.FromJson<List<DecoLink>>(File.ReadAllText(saveDir + "/links.json"));
-				
+				object jsonStr = MiniJSON.Json.Deserialize(File.ReadAllText(saveDir + "/links.json"));
+				List<object> l = (List<object>)jsonStr;
+				foreach(object o in l) {
+					DecoLink d = JsonToDecoLink(o);
+					if(!string.IsNullOrEmpty(d.attachedCarID))
+						linksDict.Add(d);
+				}
 				foreach(DecoLink ln in linksDict) {
 					DoLinkFrom(ln);
 				}
@@ -161,6 +165,28 @@ namespace TrainJetsMod {
 			else {
 				Debug.Log(saveDir + "/links.json not found");
 			}
+		}
+
+		public static DecoLink JsonToDecoLink(object o) {
+			if(o is string) {
+				object j = MiniJSON.Json.Deserialize((string)o);
+				if(j is Dictionary<string, object> d) {
+					double px = (double)d["px"];
+					double py = (double)d["py"];
+					double pz = (double)d["pz"];
+					double rw = (double)d["rw"];
+					double rx = (double)d["rx"];
+					double ry = (double)d["ry"];
+					double rz = (double)d["rz"];
+					return new DecoLink {
+						attachedCarID = (string)d["attachedCarID"],
+						buildableID = (string)d["buildableID"],
+						localpos = new Vector3((float)px, (float)py, (float)pz),
+						localrot = new Quaternion((float)rw, (float)rx, (float)ry, (float)rz)
+					};
+				}
+			}
+			return new DecoLink();
 		}
 
 		public static void DoLinkFrom(DecoLink link) {

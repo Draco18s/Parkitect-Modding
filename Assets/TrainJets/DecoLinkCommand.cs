@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TrainJetsMod {
 	public class DecoLinkCommand
@@ -27,7 +23,7 @@ namespace TrainJetsMod {
 				}
 				else if(!string.IsNullOrEmpty(theLinkJson)) {
 					Debug.Log("Got string");
-					DecoLink theLink = JsonUtility.FromJson<DecoLink>(theLinkJson); //TrainJetsMod.JsonToDecoLink(MiniJSON.Json.Deserialize(theLinkJson));
+					DecoLink theLink = JsonUtility.FromJson<DecoLink>(theLinkJson);
 					TrainJetsMod.DoLinkFrom(theLink);
 				}
 				else {
